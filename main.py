@@ -133,7 +133,7 @@ def main():
     
     py_full_path = output_full_path + ".py"
     create_py_file(db_full_path, db_path, db_file, py_full_path)
-    py_compiler.compile(py_full_path, args.)
+    py_compiler.compile(py_full_path)
     clean_up(db_file)
 
 
