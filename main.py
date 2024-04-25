@@ -29,7 +29,7 @@ def parse_arguments():
     parser.add_argument("-oF", "--output-file", type=str,
                         help="")
     parser.add_argument("-oP", "--output-path", type=str,
-                        default="./out/",
+                        default="./out",
                         help="")
     
     return parser.parse_args()
@@ -38,6 +38,14 @@ def parse_arguments():
 def test_db(db_full_path, db_path, db_file):
     check_processor.process_checks(db_full_path, db_path, db_file)
 
+def create_dir(directory):
+    try:
+        os.makedirs(directory, exist_ok=True)
+        print(f"Directory '{directory}' created successfully")
+    except Exception as e:
+        print(f"Error creating directory '{directory}': {e}")
+        sys.exit(0)
+    
 def create_py_file(py_full_path):
     try:
         shutil.copyfile("./resources/pyscript.py",
@@ -46,9 +54,8 @@ def create_py_file(py_full_path):
         print(f"Error: {e}")
         sys.exit(0)
 
-
-def main(args):
-    print(args)
+def main():
+    args = parse_arguments()
     db_file = args.db_file
     if not db_file.endswith('.py'):
         print(f"Error: The Database File '{db_file}' needs to be a py file")
@@ -57,17 +64,23 @@ def main(args):
     db_full_path = os.path.join(db_path, db_file)
     if not os.path.exists(db_full_path):
         print(f"Error: Database file '{db_file}' does not exist.")
-        sys.exit(0)
 
     if args.output_file is None:
         output_file = db_file.split(".")[0]
     else:
         output_file = args.output_file
     output_path = args.output_path
+    if output_path == "./out":
+        create_dir(output_path)
+        
     output_full_path = os.path.join(output_path, output_file)
     if not os.path.exists(output_full_path):
         print(f"Error: Output Path '{output_path}' does not exist.")
-        sys.exit(0)
+        choice = input("Would you like to create the output path? (y/n): ")
+        if choice.lower() in ["y","yes"]:
+            create_dir(output_path)
+        else:
+            sys.exit(0)
     
     if args.test:
         test_db(db_full_path, db_path, db_file)
@@ -78,5 +91,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    args = parse_arguments()
-    main(args)
+    main()

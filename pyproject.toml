@@ -8,6 +8,7 @@ authors = ["Your Name <you@example.com>"]
 python = ">=3.10.0,<3.12"
 psutil = "5.9.8"
 rich = "13.7.1"
+pyinstaller = "6.6.0"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
