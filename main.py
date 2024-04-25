@@ -34,9 +34,12 @@ def parse_arguments():
     
     return parser.parse_args()
 
-def clean_up(db_file):
+def clean_up(db_file_no_ext, ouput_full_path):
     directories = ["./dist", "./build"]
-    files = [f"{db_file}.spec"]
+    files = [f"{db_file_no_ext}.spec", "./out/{db_file_no_ext}.py"]
+    move_file(f"./dists/{db_file_no_ext}", ouput_full_path)
+
+    
     [remove_dir(directory) for directory in directories]
     [remove_file(file) for file in files]
     
@@ -58,6 +61,12 @@ def remove_dir(directory):
     except Exception as e:
         print(f"Error removing directory '{directory}': {e}")
         sys.exit(0)
+
+def move_file(source, destination):
+    try:
+        shutil.move(source, destination)
+    except Exception as e:
+        print(f"Error moving file '{source}': {e}")
 
 def remove_file(file):
     try:
@@ -135,7 +144,7 @@ def main():
     py_full_path = output_full_path + ".py"
     create_py_file(db_full_path, db_path, db_file, py_full_path)
     py_compiler.compile(py_full_path)
-    clean_up(db_file_no_ext)
+    clean_up(db_file_no_ext, output_full_path)
 
 
 if __name__ == "__main__":
