@@ -34,6 +34,12 @@ def parse_arguments():
     
     return parser.parse_args()
 
+def clean_up(db_file):
+    directories = ["./dist", "./build"]
+    files = [f"{db_file}.spec"]
+    [remove_dir(directory) for directory in directories]
+    [remove_file(file) for file in files]
+    
 
 def test_db(db_full_path, db_path, db_file):
     check_processor.process_checks(db_full_path, db_path, db_file)
@@ -45,6 +51,13 @@ def create_dir(directory):
     except Exception as e:
         print(f"Error creating directory '{directory}': {e}")
         sys.exit(0)
+        
+def remove_dir(directory):
+    try:
+        shutil.rmtree(directory)
+    except Exception as e:
+        print(f"Error removing directory '{directory}': {e}")
+        sys.exit(0)
 
 def remove_file(file):
     try:
@@ -52,6 +65,7 @@ def remove_file(file):
     except Exception as e:
         print(f"Error removing file '{file}': {e}")
         sys.exit(0)
+    
     
 def create_py_file(db_full_path, db_path, db_file, py_full_path):
     file_content = [
@@ -119,7 +133,8 @@ def main():
     
     py_full_path = output_full_path + ".py"
     create_py_file(db_full_path, db_path, db_file, py_full_path)
-    py_compiler.compile(py_full_path)
+    py_compiler.compile(py_full_path, args.)
+    clean_up(db_file)
 
 
 if __name__ == "__main__":
