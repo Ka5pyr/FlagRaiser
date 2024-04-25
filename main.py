@@ -92,6 +92,9 @@ def main():
         print(f"Error: Output File '{output_full_path}' already exists.")
         choice = input("Would you like to overwrite the file? (y/n): ")
         if choice.lower() in ["y","yes"]:
+            remove_file(output_full_path)
+        else:
+            sys.exit(0)
     
     if args.test:
         test_db(db_full_path, db_path, db_file)
