@@ -45,6 +45,13 @@ def create_dir(directory):
     except Exception as e:
         print(f"Error creating directory '{directory}': {e}")
         sys.exit(0)
+
+def remove_file(file):
+    try:
+        os.remove(file)
+    except Exception as e:
+        print(f"Error removing file '{file}': {e}")
+        sys.exit(0)
     
 def create_py_file(py_full_path):
     try:
@@ -74,13 +81,17 @@ def main():
         create_dir(output_path)
         
     output_full_path = os.path.join(output_path, output_file)
-    if not os.path.exists(output_full_path):
+    if not os.path.exists(output_path):
         print(f"Error: Output Path '{output_path}' does not exist.")
         choice = input("Would you like to create the output path? (y/n): ")
         if choice.lower() in ["y","yes"]:
             create_dir(output_path)
         else:
             sys.exit(0)
+    if os.path.exists(output_full_path):
+        print(f"Error: Output File '{output_full_path}' already exists.")
+        choice = input("Would you like to overwrite the file? (y/n): ")
+        if choice.lower() in ["y","yes"]:
     
     if args.test:
         test_db(db_full_path, db_path, db_file)
