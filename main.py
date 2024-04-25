@@ -67,7 +67,8 @@ def create_py_file(db_full_path, db_path, db_file, py_full_path):
         "    check_processor.process_checks(db_full_path, db_path, db_file)",
         "",
         "if __name__ == '__main__':",
-        "    main()"
+        "    main()",
+        ""
     ]
     try:
         with open(py_full_path, 'w') as f:
@@ -87,6 +88,10 @@ def main():
     db_full_path = os.path.join(db_path, db_file)
     if not os.path.exists(db_full_path):
         print(f"Error: Database file '{db_file}' does not exist.")
+        
+    if args.test:
+        test_db(db_full_path, db_path, db_file)
+        sys.exit(0)
 
     if args.output_file is None:
         output_file = db_file.split(".")[0]
@@ -112,12 +117,9 @@ def main():
         else:
             sys.exit(0)
     
-    if args.test:
-        test_db(db_full_path, db_path, db_file)
-    elif args.build:
-        py_full_path = output_full_path + ".py"
-        create_py_file(db_full_path, db_path, db_file, py_full_path)
-        py_compiler.compile(py_full_path)
+    py_full_path = output_full_path + ".py"
+    create_py_file(db_full_path, db_path, db_file, py_full_path)
+    py_compiler.compile(py_full_path)
 
 
 if __name__ == "__main__":
