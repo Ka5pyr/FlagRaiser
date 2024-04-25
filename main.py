@@ -34,10 +34,12 @@ def parse_arguments():
     
     return parser.parse_args()
 
-def clean_up(db_file_no_ext, ouput_full_path):
+def clean_up(db_file_no_ext, output_full_path):
+    print("Full Output Path: " + output_full_path)
+    print("DB FILE: " + db_file_no_ext)
     directories = ["./dist", "./build"]
     files = [f"{db_file_no_ext}.spec", "./out/{db_file_no_ext}.py"]
-    move_file(f"./dists/{db_file_no_ext}", ouput_full_path)
+    move_file(f"./dist/{db_file_no_ext}", output_full_path)
 
     
     [remove_dir(directory) for directory in directories]
