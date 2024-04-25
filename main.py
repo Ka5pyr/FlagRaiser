@@ -95,6 +95,7 @@ def create_py_file(db_full_path, db_path, db_file, py_full_path):
 def main():
     args = parse_arguments()
     db_file = args.db_file
+    db_file_no_ext = db_file.split(".")[0]
     if not db_file.endswith('.py'):
         print(f"Error: The Database File '{db_file}' needs to be a py file")
         sys.exit(0)
@@ -108,7 +109,7 @@ def main():
         sys.exit(0)
 
     if args.output_file is None:
-        output_file = db_file.split(".")[0]
+        output_file = db_file_no_ext
     else:
         output_file = args.output_file
     output_path = args.output_path
@@ -134,7 +135,7 @@ def main():
     py_full_path = output_full_path + ".py"
     create_py_file(db_full_path, db_path, db_file, py_full_path)
     py_compiler.compile(py_full_path)
-    clean_up(db_file)
+    clean_up(db_file_no_ext)
 
 
 if __name__ == "__main__":
