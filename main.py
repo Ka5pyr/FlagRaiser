@@ -53,10 +53,26 @@ def remove_file(file):
         print(f"Error removing file '{file}': {e}")
         sys.exit(0)
     
-def create_py_file(py_full_path):
+def create_py_file(db_full_path, db_path, db_file, py_full_path):
+    file_content = [
+        "import sys",
+        "",
+        "sys.path.append('./py-modules/')",
+        "import check_processor",
+        "",
+        "def main():",
+        f"    db_full_path = {db_full_path}",
+        f"    db_path = {db_path}",
+        f"    db_file = {db_file}",
+        "    check_processor.process_checks(db_full_path, db_path, db_file)",
+        "",
+        "if __name__ == '__main__':",
+        "    main()"
+    ]
     try:
-        shutil.copyfile("./resources/pyscript.py",
-                py_full_path)
+        with open(py_full_path, 'w') as f:
+            f.write('\n'.join(file_content))
+            
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(0)
@@ -100,7 +116,7 @@ def main():
         test_db(db_full_path, db_path, db_file)
     elif args.build:
         py_full_path = output_full_path + ".py"
-        create_py_file(py_full_path)
+        create_py_file(db_full_path, db_path, db_file, py_full_path)
         py_compiler.compile(py_full_path)
 
 

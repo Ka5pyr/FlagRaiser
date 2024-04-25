@@ -5,7 +5,6 @@ import check_processor
 
 
 def main():
-    # Process through the checks
     check_processor.process_checks(db_full_path, db_path, db_file)
 
 
