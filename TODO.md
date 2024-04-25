@@ -26,4 +26,4 @@
   [ ] - DB_FILE is a python 'py' file
   [ ] - DB_FILE exists on the system
   [ ] - Path to DB_FILE exists on the system
-  [ ] - 
+  [ ] - Validate OUTPUT_PATH exists on the system

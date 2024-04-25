@@ -1,8 +1,8 @@
 import PyInstaller.__main__
 
-def compile(py_file):
+def compile(py_full_path):
     PyInstaller.__main__.run([
-        py_file,
+        py_full_path,
         '--onefile',
         '--collect-submodules=ipaddress',
         '--collect-submodules=psutil',

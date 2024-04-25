@@ -1,9 +1,12 @@
 import argparse
 import os
+from platform import python_compiler
+import shutil
 import sys
 
 sys.path.append('./py-modules/')
 import check_processor
+import py_compiler
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Flag Raiser Program')
@@ -35,6 +38,14 @@ def parse_arguments():
 def test_db(db_full_path, db_path, db_file):
     check_processor.process_checks(db_full_path, db_path, db_file)
 
+def create_py_file(py_full_path):
+    try:
+        shutil.copyfile("./resources/pyscript.py",
+                py_full_path)
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(0)
+
 
 def main(args):
     print(args)
@@ -52,12 +63,18 @@ def main(args):
         output_file = db_file.split(".")[0]
     else:
         output_file = args.output_file
-        
+    output_path = args.output_path
+    output_full_path = os.path.join(output_path, output_file)
+    if not os.path.exists(output_full_path):
+        print(f"Error: Output Path '{output_path}' does not exist.")
+        sys.exit(0)
     
     if args.test:
         test_db(db_full_path, db_path, db_file)
     elif args.build:
-        pass
+        py_full_path = output_full_path + ".py"
+        create_py_file(py_full_path)
+        py_compiler.compile(py_full_path)
 
 
 if __name__ == "__main__":
