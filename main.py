@@ -147,8 +147,8 @@ def main():
     create_dir("./tmp")
     copy_file(db_full_path, "./tmp/db.py") 
     create_py_file(py_full_path)
-    #py_compiler.compile(py_full_path)
-    #clean_up(db_file_no_ext, output_full_path)
+    py_compiler.compile(py_full_path)
+    clean_up(db_file_no_ext, output_full_path)
     
 
 if __name__ == "__main__":
