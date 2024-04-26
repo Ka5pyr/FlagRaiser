@@ -102,12 +102,12 @@ def check_checks_amount(checks):
         sys.exit(0)
 
 # Function to process the checks from the JSON Check File
-def process_checks(db_full_path, db_path, db_file):
-    spec = importlib.util.spec_from_file_location(db_file, db_full_path)
-    db_module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(db_module)
+def process_checks():
     
-    data = getattr(db_module, 'data', None)
+    sys.path.append('./tmp')
+    import db
+
+    data = db['data']
     checks = data['checks']
     title = data['title']
     

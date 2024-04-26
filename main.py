@@ -35,7 +35,7 @@ def parse_arguments():
     return parser.parse_args()
 
 def clean_up(db_file_no_ext, output_full_path):
-    directories = ["./dist", "./build"]
+    directories = ["./dist", "./build","./tmp"]
     files = [f"{db_file_no_ext}.spec", f"./out/{db_file_no_ext}.py"]
     move_file(f"./dist/{db_file_no_ext}", output_full_path)
 
@@ -74,9 +74,14 @@ def remove_file(file):
     except Exception as e:
         print(f"Error removing file '{file}': {e}")
         sys.exit(0)
+        
+def copy_file(source, destination):    
+    try:
+        shutil.copy(source, destination)
+    except Exception as e:
+        print(f"Error copying file '{source}': {e}")
     
-    
-def create_py_file(db_full_path, db_path, db_file, py_full_path):
+def create_py_file(py_full_path):
     file_content = [
         "import sys",
         "",
@@ -84,10 +89,7 @@ def create_py_file(db_full_path, db_path, db_file, py_full_path):
         "import check_processor",
         "",
         "def main():",
-        f"    db_full_path = '{db_full_path}'",
-        f"    db_path = '{db_path}'",
-        f"    db_file = '{db_file}'",
-        "    check_processor.process_checks(db_full_path, db_path, db_file)",
+        "    check_processor.process_checks()",
         "",
         "if __name__ == '__main__':",
         "    main()",
@@ -142,10 +144,12 @@ def main():
             sys.exit(0)
     
     py_full_path = output_full_path + ".py"
-    create_py_file(db_full_path, db_path, db_file, py_full_path)
-    py_compiler.compile(py_full_path)
-    clean_up(db_file_no_ext, output_full_path)
-
+    create_dir("./tmp")
+    copy_file(db_full_path, "./tmp/db.py") 
+    create_py_file(py_full_path)
+    #py_compiler.compile(py_full_path)
+    #clean_up(db_file_no_ext, output_full_path)
+    
 
 if __name__ == "__main__":
     main()
