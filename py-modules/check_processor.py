@@ -3,7 +3,6 @@ import sys
 sys.path.append('./py-modules/')
 import net_info
 import format_message
-import db
 
 
 def adapter_check(check):
@@ -102,6 +101,7 @@ def check_checks_amount(checks):
 
 # Function to process the checks from the JSON Check File
 def process_checks():
+    import db
     
     data = db.data
     checks = data['checks']

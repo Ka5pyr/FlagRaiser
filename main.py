@@ -45,7 +45,7 @@ def clean_up(db_file_no_ext, output_full_path):
     wipe_file("./py-modules/db.py")
     
 
-def test_db(db_full_path, db_path, db_file):
+def test_db():
     check_processor.process_checks()
 
 def create_dir(directory):
@@ -106,7 +106,7 @@ def create_py_file(py_full_path):
 
 def wipe_file(file):
     try:
-        with open(file, 'w') as f:
+        with open(file, 'w'):
             pass
     except Exception as e:
         print(f"Error: Couldn't wipe file {file} - {e}")
@@ -123,9 +123,6 @@ def main():
     if not os.path.exists(db_full_path):
         print(f"Error: Database file '{db_file}' does not exist.")
         
-    if args.test:
-        test_db(db_full_path, db_path, db_file)
-        sys.exit(0)
 
     if args.output_file is None:
         output_file = db_file_no_ext
@@ -154,6 +151,9 @@ def main():
     py_full_path = output_full_path + ".py"
     wipe_file("./py-modules/db.py")
     copy_file(db_full_path, "./py-modules/db.py") 
+    if args.test:
+        test_db()
+        sys.exit(0)
     create_py_file(py_full_path)
     py_compiler.compile(py_full_path)
     clean_up(db_file_no_ext, output_full_path)
