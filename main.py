@@ -46,7 +46,7 @@ def clean_up(db_file_no_ext, output_full_path):
     
 
 def test_db(db_full_path, db_path, db_file):
-    check_processor.process_checks(db_full_path, db_path, db_file)
+    check_processor.process_checks()
 
 def create_dir(directory):
     try:
