@@ -35,13 +35,14 @@ def parse_arguments():
     return parser.parse_args()
 
 def clean_up(db_file_no_ext, output_full_path):
-    directories = ["./dist", "./build","./tmp"]
+    directories = ["./dist", "./build"]
     files = [f"{db_file_no_ext}.spec", f"./out/{db_file_no_ext}.py"]
     move_file(f"./dist/{db_file_no_ext}", output_full_path)
 
     
     [remove_dir(directory) for directory in directories]
     [remove_file(file) for file in files]
+    wipe_file("./py-modules/db.py")
     
 
 def test_db(db_full_path, db_path, db_file):
@@ -103,6 +104,13 @@ def create_py_file(py_full_path):
         print(f"Error: {e}")
         sys.exit(0)
 
+def wipe_file(file):
+    try:
+        with open(file, 'w') as f:
+            pass
+    except Exception as e:
+        print(f"Error: Couldn't wipe file {file} - {e}")
+
 def main():
     args = parse_arguments()
     db_file = args.db_file
@@ -144,8 +152,8 @@ def main():
             sys.exit(0)
     
     py_full_path = output_full_path + ".py"
-    create_dir("./tmp")
-    copy_file(db_full_path, "./tmp/db.py") 
+    wipe_file("./py-modules/db.py")
+    copy_file(db_full_path, "./py-modules/db.py") 
     create_py_file(py_full_path)
     py_compiler.compile(py_full_path)
     clean_up(db_file_no_ext, output_full_path)
