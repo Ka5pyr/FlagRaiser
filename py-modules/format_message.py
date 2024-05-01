@@ -15,7 +15,7 @@ def print_check_pass(check):
     console.print(f"  [bold green][✔] Success:[/bold green] {check['name']}")
     if check["success_flag"] != "":
         console.print(f"{' '*6}🎉 [bold green]Flag:[/bold green]"
-                      "{check['success_flag']} 🎉")
+                      f"{check['success_flag']} 🎉")
         
 def print_check_fail(check, issue):
     console = Console()

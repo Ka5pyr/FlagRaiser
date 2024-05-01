@@ -20,16 +20,16 @@ def parse_arguments():
                         help=("Test the DB File in Test Mode. "
                         "This will NOT create an executable."))
     
+    parser.add_argument("-dP", "--db-file-path", type=str,
+                        required=True,
+                        help="")
     parser.add_argument("-dF", "--db-file", type=str,
                         required=True,
                         help="")
-    parser.add_argument("-dB", "--db-file-path", type=str,
-                        required=True,
-                        help="")
-    parser.add_argument("-oF", "--output-file", type=str,
-                        help="")
     parser.add_argument("-oP", "--output-path", type=str,
                         default="./out",
+                        help="")
+    parser.add_argument("-oF", "--output-file", type=str,
                         help="")
     
     return parser.parse_args()
@@ -129,7 +129,9 @@ def main():
     else:
         output_file = args.output_file
     output_path = args.output_path
-    if output_path == "./out":
+
+    # Build Out Directory if in build mode and if it doesn't exist
+    if args.build:
         create_dir(output_path)
         
     output_full_path = os.path.join(output_path, output_file)

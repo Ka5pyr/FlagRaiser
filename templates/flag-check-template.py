@@ -5,7 +5,7 @@ data = {
       "name": "TEST 1",
       "description": "test",
       "type": "adapter_check",
-      "adapter_name": "eth0",
+      "adapter_name": "eth4",
       "success_flag": "FLAG TEST",
       "print_success": True,
       "suggestions": ["test"]

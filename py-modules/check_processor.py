@@ -6,13 +6,16 @@ import format_message
 
 
 def adapter_check(check):
-    adapter = check['adapter_name']
-    if net_info.check_adapter_exists(adapter):
-        format_message.print_check_pass(check)
-    else:
-        issue = f"Adapter '{adapter}' does not exist"
-        format_message.print_check_fail(check, issue)
-        sys.exit(0)
+    try: 
+        adapter = check['adapter_name']
+        if net_info.check_adapter_exists(adapter):
+            format_message.print_check_pass(check)
+        else:
+            issue = f"Adapter '{adapter}' does not exist"
+            format_message.print_check_fail(check, issue)
+            sys.exit(0)
+    except Exception as e:
+        print(f"Error: {e}")
 
 def adapter_count(check):
     correct_adapter_amount = check['adapter_amount']
