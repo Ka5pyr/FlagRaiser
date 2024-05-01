@@ -8,7 +8,8 @@ data = {
       "adapter_name": "eth4",
       "success_flag": "FLAG TEST",
       "print_success": True,
-      "suggestions": ["test"]
+      "suggestions": ["test"],
+      "resources": [""]
     },
     {
       "name": "TEST 2",
@@ -18,7 +19,8 @@ data = {
       "adapter_name": "eth0",
       "success_flag" : "FLAGHERE",
       "print_success": False,
-      "suggestions": ["test"]
+      "suggestions": ["test"],
+      "resources": [""]
     }
   ]
 }
