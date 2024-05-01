@@ -1,11 +1,24 @@
 # Flag Raiser
 
-## Description
-The purpose of this program is create a compiled python file that can be added into a VM instance to check for different characteristics about the machine. 
+## Table of Contents
+- [Description](#description)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Test run](#test-run)
+  - [Creating an Executable](#creating-an-executable)
+- [DB File Creation](#db-file-creation)
+  - [Creating the DB File](#creating-the-db-file)
+  - [Check Types](#check-types)
+- [Deployment](#deployment)
+- [Author](#author)
 
-Flag strings can also be added into the checks as needed.
+## Description
+The purpose of this program is to create a compiled python file that can be added into a VM instance to check for different characteristics about the machine and include flag strings into the checks as needed.
 
 ## Getting Started
+
 ### Prerequisites
 **Download the git directory**
 ```bash
@@ -33,18 +46,11 @@ python3 main.py -B -dP="./templates" -dF="flag-check-template.py" -oF="flag-test
 ```
 
 ## DB File Creation
-### Description
-The DB file is actually a json file turned into a Python Dictionary. The reason for this is so that it can be compiled along side the main program.
+### Overview
+The DB file, essential for the program's operation, is a JSON file transformed into a Python dictionary. This format allows it to be compiled alongside the main program. The DB file must contain specific keys: title for the check's name and checks which is a list of dictionaries detailing individual checks.
 
 ### Creating the DB File
-The file must include "title" and "checks" keys.
-The title is for the name of the check as a whole.
-
-```"title": "Ping Checker"```
-
-The "checks" key is connected to a list of dictionaries which includes all the checks the program will run through.
-
-```"checks": [{}]```
+Your DB file should include a "title" key for the check's overall name and a "checks" key. The "checks" key points to a list of dictionaries, each representing an individual check. These dictionaries must include keys for "name", "description", "type", and others as necessary for the check's context.
 
 Inside each dictionary must include the following:
 - **"name": ""**
