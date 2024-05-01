@@ -8,10 +8,14 @@ def print_title(title):
     console.print(f"[bold blue]{title}[/bold blue]")
 
 def print_check_pass(check):
+    if check["print_success"] is False:
+        return
+        
     console = Console()
     console.print(f"  [bold green][✔] Success:[/bold green] {check['name']}")
     if check["success_flag"] != "":
-        console.print(f"{' '*6}🎉 [bold green]Flag:[/bold green] {check['success_flag']} 🎉")
+        console.print(f"{' '*6}🎉 [bold green]Flag:[/bold green]"
+                      "{check['success_flag']} 🎉")
         
 def print_check_fail(check, issue):
     console = Console()

@@ -6,7 +6,8 @@ data = {
       "description": "test",
       "type": "adapter_check",
       "adapter_name": "eth0",
-      "success_flag" : "FLAG TEST",
+      "success_flag": "FLAG TEST",
+      "print_success": True,
       "suggestions": ["test"]
     },
     {
@@ -16,6 +17,7 @@ data = {
       "subnet": "192.168.1.1",
       "adapter_name": "eth0",
       "success_flag" : "FLAGHERE",
+      "print_success": False,
       "suggestions": ["test"]
     }
   ]
